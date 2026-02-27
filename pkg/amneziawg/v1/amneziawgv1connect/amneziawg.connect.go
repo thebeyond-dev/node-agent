@@ -33,18 +33,18 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
-	// AmneziaWGServiceCreateClientProcedure is the fully-qualified name of the AmneziaWGService's
-	// CreateClient RPC.
-	AmneziaWGServiceCreateClientProcedure = "/amneziawg.v1.AmneziaWGService/CreateClient"
-	// AmneziaWGServiceDeleteClientProcedure is the fully-qualified name of the AmneziaWGService's
-	// DeleteClient RPC.
-	AmneziaWGServiceDeleteClientProcedure = "/amneziawg.v1.AmneziaWGService/DeleteClient"
+	// AmneziaWGServiceCreatePeerProcedure is the fully-qualified name of the AmneziaWGService's
+	// CreatePeer RPC.
+	AmneziaWGServiceCreatePeerProcedure = "/amneziawg.v1.AmneziaWGService/CreatePeer"
+	// AmneziaWGServiceDeletePeerProcedure is the fully-qualified name of the AmneziaWGService's
+	// DeletePeer RPC.
+	AmneziaWGServiceDeletePeerProcedure = "/amneziawg.v1.AmneziaWGService/DeletePeer"
 )
 
 // AmneziaWGServiceClient is a client for the amneziawg.v1.AmneziaWGService service.
 type AmneziaWGServiceClient interface {
-	CreateClient(context.Context, *v1.CreateClientRequest) (*v1.CreateClientResponse, error)
-	DeleteClient(context.Context, *v1.DeleteClientRequest) (*v1.DeleteClientResponse, error)
+	CreatePeer(context.Context, *v1.CreatePeerRequest) (*v1.CreatePeerResponse, error)
+	DeletePeer(context.Context, *v1.DeletePeerRequest) (*v1.DeletePeerResponse, error)
 }
 
 // NewAmneziaWGServiceClient constructs a client for the amneziawg.v1.AmneziaWGService service. By
@@ -58,16 +58,16 @@ func NewAmneziaWGServiceClient(httpClient connect.HTTPClient, baseURL string, op
 	baseURL = strings.TrimRight(baseURL, "/")
 	amneziaWGServiceMethods := v1.File_amneziawg_proto.Services().ByName("AmneziaWGService").Methods()
 	return &amneziaWGServiceClient{
-		createClient: connect.NewClient[v1.CreateClientRequest, v1.CreateClientResponse](
+		createPeer: connect.NewClient[v1.CreatePeerRequest, v1.CreatePeerResponse](
 			httpClient,
-			baseURL+AmneziaWGServiceCreateClientProcedure,
-			connect.WithSchema(amneziaWGServiceMethods.ByName("CreateClient")),
+			baseURL+AmneziaWGServiceCreatePeerProcedure,
+			connect.WithSchema(amneziaWGServiceMethods.ByName("CreatePeer")),
 			connect.WithClientOptions(opts...),
 		),
-		deleteClient: connect.NewClient[v1.DeleteClientRequest, v1.DeleteClientResponse](
+		deletePeer: connect.NewClient[v1.DeletePeerRequest, v1.DeletePeerResponse](
 			httpClient,
-			baseURL+AmneziaWGServiceDeleteClientProcedure,
-			connect.WithSchema(amneziaWGServiceMethods.ByName("DeleteClient")),
+			baseURL+AmneziaWGServiceDeletePeerProcedure,
+			connect.WithSchema(amneziaWGServiceMethods.ByName("DeletePeer")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -75,22 +75,22 @@ func NewAmneziaWGServiceClient(httpClient connect.HTTPClient, baseURL string, op
 
 // amneziaWGServiceClient implements AmneziaWGServiceClient.
 type amneziaWGServiceClient struct {
-	createClient *connect.Client[v1.CreateClientRequest, v1.CreateClientResponse]
-	deleteClient *connect.Client[v1.DeleteClientRequest, v1.DeleteClientResponse]
+	createPeer *connect.Client[v1.CreatePeerRequest, v1.CreatePeerResponse]
+	deletePeer *connect.Client[v1.DeletePeerRequest, v1.DeletePeerResponse]
 }
 
-// CreateClient calls amneziawg.v1.AmneziaWGService.CreateClient.
-func (c *amneziaWGServiceClient) CreateClient(ctx context.Context, req *v1.CreateClientRequest) (*v1.CreateClientResponse, error) {
-	response, err := c.createClient.CallUnary(ctx, connect.NewRequest(req))
+// CreatePeer calls amneziawg.v1.AmneziaWGService.CreatePeer.
+func (c *amneziaWGServiceClient) CreatePeer(ctx context.Context, req *v1.CreatePeerRequest) (*v1.CreatePeerResponse, error) {
+	response, err := c.createPeer.CallUnary(ctx, connect.NewRequest(req))
 	if response != nil {
 		return response.Msg, err
 	}
 	return nil, err
 }
 
-// DeleteClient calls amneziawg.v1.AmneziaWGService.DeleteClient.
-func (c *amneziaWGServiceClient) DeleteClient(ctx context.Context, req *v1.DeleteClientRequest) (*v1.DeleteClientResponse, error) {
-	response, err := c.deleteClient.CallUnary(ctx, connect.NewRequest(req))
+// DeletePeer calls amneziawg.v1.AmneziaWGService.DeletePeer.
+func (c *amneziaWGServiceClient) DeletePeer(ctx context.Context, req *v1.DeletePeerRequest) (*v1.DeletePeerResponse, error) {
+	response, err := c.deletePeer.CallUnary(ctx, connect.NewRequest(req))
 	if response != nil {
 		return response.Msg, err
 	}
@@ -99,8 +99,8 @@ func (c *amneziaWGServiceClient) DeleteClient(ctx context.Context, req *v1.Delet
 
 // AmneziaWGServiceHandler is an implementation of the amneziawg.v1.AmneziaWGService service.
 type AmneziaWGServiceHandler interface {
-	CreateClient(context.Context, *v1.CreateClientRequest) (*v1.CreateClientResponse, error)
-	DeleteClient(context.Context, *v1.DeleteClientRequest) (*v1.DeleteClientResponse, error)
+	CreatePeer(context.Context, *v1.CreatePeerRequest) (*v1.CreatePeerResponse, error)
+	DeletePeer(context.Context, *v1.DeletePeerRequest) (*v1.DeletePeerResponse, error)
 }
 
 // NewAmneziaWGServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -110,24 +110,24 @@ type AmneziaWGServiceHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewAmneziaWGServiceHandler(svc AmneziaWGServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
 	amneziaWGServiceMethods := v1.File_amneziawg_proto.Services().ByName("AmneziaWGService").Methods()
-	amneziaWGServiceCreateClientHandler := connect.NewUnaryHandlerSimple(
-		AmneziaWGServiceCreateClientProcedure,
-		svc.CreateClient,
-		connect.WithSchema(amneziaWGServiceMethods.ByName("CreateClient")),
+	amneziaWGServiceCreatePeerHandler := connect.NewUnaryHandlerSimple(
+		AmneziaWGServiceCreatePeerProcedure,
+		svc.CreatePeer,
+		connect.WithSchema(amneziaWGServiceMethods.ByName("CreatePeer")),
 		connect.WithHandlerOptions(opts...),
 	)
-	amneziaWGServiceDeleteClientHandler := connect.NewUnaryHandlerSimple(
-		AmneziaWGServiceDeleteClientProcedure,
-		svc.DeleteClient,
-		connect.WithSchema(amneziaWGServiceMethods.ByName("DeleteClient")),
+	amneziaWGServiceDeletePeerHandler := connect.NewUnaryHandlerSimple(
+		AmneziaWGServiceDeletePeerProcedure,
+		svc.DeletePeer,
+		connect.WithSchema(amneziaWGServiceMethods.ByName("DeletePeer")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/amneziawg.v1.AmneziaWGService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case AmneziaWGServiceCreateClientProcedure:
-			amneziaWGServiceCreateClientHandler.ServeHTTP(w, r)
-		case AmneziaWGServiceDeleteClientProcedure:
-			amneziaWGServiceDeleteClientHandler.ServeHTTP(w, r)
+		case AmneziaWGServiceCreatePeerProcedure:
+			amneziaWGServiceCreatePeerHandler.ServeHTTP(w, r)
+		case AmneziaWGServiceDeletePeerProcedure:
+			amneziaWGServiceDeletePeerHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -137,10 +137,10 @@ func NewAmneziaWGServiceHandler(svc AmneziaWGServiceHandler, opts ...connect.Han
 // UnimplementedAmneziaWGServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedAmneziaWGServiceHandler struct{}
 
-func (UnimplementedAmneziaWGServiceHandler) CreateClient(context.Context, *v1.CreateClientRequest) (*v1.CreateClientResponse, error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("amneziawg.v1.AmneziaWGService.CreateClient is not implemented"))
+func (UnimplementedAmneziaWGServiceHandler) CreatePeer(context.Context, *v1.CreatePeerRequest) (*v1.CreatePeerResponse, error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("amneziawg.v1.AmneziaWGService.CreatePeer is not implemented"))
 }
 
-func (UnimplementedAmneziaWGServiceHandler) DeleteClient(context.Context, *v1.DeleteClientRequest) (*v1.DeleteClientResponse, error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("amneziawg.v1.AmneziaWGService.DeleteClient is not implemented"))
+func (UnimplementedAmneziaWGServiceHandler) DeletePeer(context.Context, *v1.DeletePeerRequest) (*v1.DeletePeerResponse, error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("amneziawg.v1.AmneziaWGService.DeletePeer is not implemented"))
 }

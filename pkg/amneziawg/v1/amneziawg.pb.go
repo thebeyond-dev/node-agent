@@ -21,26 +21,26 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type CreateClientRequest struct {
+type CreatePeerRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateClientRequest) Reset() {
-	*x = CreateClientRequest{}
+func (x *CreatePeerRequest) Reset() {
+	*x = CreatePeerRequest{}
 	mi := &file_amneziawg_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateClientRequest) String() string {
+func (x *CreatePeerRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateClientRequest) ProtoMessage() {}
+func (*CreatePeerRequest) ProtoMessage() {}
 
-func (x *CreateClientRequest) ProtoReflect() protoreflect.Message {
+func (x *CreatePeerRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_amneziawg_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -52,12 +52,12 @@ func (x *CreateClientRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateClientRequest.ProtoReflect.Descriptor instead.
-func (*CreateClientRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreatePeerRequest.ProtoReflect.Descriptor instead.
+func (*CreatePeerRequest) Descriptor() ([]byte, []int) {
 	return file_amneziawg_proto_rawDescGZIP(), []int{0}
 }
 
-type CreateClientResponse struct {
+type CreatePeerResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
@@ -67,20 +67,20 @@ type CreateClientResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateClientResponse) Reset() {
-	*x = CreateClientResponse{}
+func (x *CreatePeerResponse) Reset() {
+	*x = CreatePeerResponse{}
 	mi := &file_amneziawg_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateClientResponse) String() string {
+func (x *CreatePeerResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateClientResponse) ProtoMessage() {}
+func (*CreatePeerResponse) ProtoMessage() {}
 
-func (x *CreateClientResponse) ProtoReflect() protoreflect.Message {
+func (x *CreatePeerResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_amneziawg_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -92,60 +92,60 @@ func (x *CreateClientResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateClientResponse.ProtoReflect.Descriptor instead.
-func (*CreateClientResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreatePeerResponse.ProtoReflect.Descriptor instead.
+func (*CreatePeerResponse) Descriptor() ([]byte, []int) {
 	return file_amneziawg_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *CreateClientResponse) GetSuccess() bool {
+func (x *CreatePeerResponse) GetSuccess() bool {
 	if x != nil {
 		return x.Success
 	}
 	return false
 }
 
-func (x *CreateClientResponse) GetError() string {
+func (x *CreatePeerResponse) GetError() string {
 	if x != nil {
 		return x.Error
 	}
 	return ""
 }
 
-func (x *CreateClientResponse) GetConfig() string {
+func (x *CreatePeerResponse) GetConfig() string {
 	if x != nil {
 		return x.Config
 	}
 	return ""
 }
 
-func (x *CreateClientResponse) GetPubkey() string {
+func (x *CreatePeerResponse) GetPubkey() string {
 	if x != nil {
 		return x.Pubkey
 	}
 	return ""
 }
 
-type DeleteClientRequest struct {
+type DeletePeerRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Pubkey        string                 `protobuf:"bytes,1,opt,name=pubkey,proto3" json:"pubkey,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *DeleteClientRequest) Reset() {
-	*x = DeleteClientRequest{}
+func (x *DeletePeerRequest) Reset() {
+	*x = DeletePeerRequest{}
 	mi := &file_amneziawg_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *DeleteClientRequest) String() string {
+func (x *DeletePeerRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteClientRequest) ProtoMessage() {}
+func (*DeletePeerRequest) ProtoMessage() {}
 
-func (x *DeleteClientRequest) ProtoReflect() protoreflect.Message {
+func (x *DeletePeerRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_amneziawg_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -157,19 +157,19 @@ func (x *DeleteClientRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteClientRequest.ProtoReflect.Descriptor instead.
-func (*DeleteClientRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use DeletePeerRequest.ProtoReflect.Descriptor instead.
+func (*DeletePeerRequest) Descriptor() ([]byte, []int) {
 	return file_amneziawg_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *DeleteClientRequest) GetPubkey() string {
+func (x *DeletePeerRequest) GetPubkey() string {
 	if x != nil {
 		return x.Pubkey
 	}
 	return ""
 }
 
-type DeleteClientResponse struct {
+type DeletePeerResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
@@ -177,20 +177,20 @@ type DeleteClientResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *DeleteClientResponse) Reset() {
-	*x = DeleteClientResponse{}
+func (x *DeletePeerResponse) Reset() {
+	*x = DeletePeerResponse{}
 	mi := &file_amneziawg_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *DeleteClientResponse) String() string {
+func (x *DeletePeerResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteClientResponse) ProtoMessage() {}
+func (*DeletePeerResponse) ProtoMessage() {}
 
-func (x *DeleteClientResponse) ProtoReflect() protoreflect.Message {
+func (x *DeletePeerResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_amneziawg_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -202,19 +202,19 @@ func (x *DeleteClientResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteClientResponse.ProtoReflect.Descriptor instead.
-func (*DeleteClientResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use DeletePeerResponse.ProtoReflect.Descriptor instead.
+func (*DeletePeerResponse) Descriptor() ([]byte, []int) {
 	return file_amneziawg_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *DeleteClientResponse) GetSuccess() bool {
+func (x *DeletePeerResponse) GetSuccess() bool {
 	if x != nil {
 		return x.Success
 	}
 	return false
 }
 
-func (x *DeleteClientResponse) GetError() string {
+func (x *DeletePeerResponse) GetError() string {
 	if x != nil {
 		return x.Error
 	}
@@ -225,21 +225,23 @@ var File_amneziawg_proto protoreflect.FileDescriptor
 
 const file_amneziawg_proto_rawDesc = "" +
 	"\n" +
-	"\x0famneziawg.proto\x12\famneziawg.v1\"\x15\n" +
-	"\x13CreateClientRequest\"v\n" +
-	"\x14CreateClientResponse\x12\x18\n" +
+	"\x0famneziawg.proto\x12\famneziawg.v1\"\x13\n" +
+	"\x11CreatePeerRequest\"t\n" +
+	"\x12CreatePeerResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x14\n" +
 	"\x05error\x18\x02 \x01(\tR\x05error\x12\x16\n" +
 	"\x06config\x18\x03 \x01(\tR\x06config\x12\x16\n" +
-	"\x06pubkey\x18\x04 \x01(\tR\x06pubkey\"-\n" +
-	"\x13DeleteClientRequest\x12\x16\n" +
-	"\x06pubkey\x18\x01 \x01(\tR\x06pubkey\"F\n" +
-	"\x14DeleteClientResponse\x12\x18\n" +
+	"\x06pubkey\x18\x04 \x01(\tR\x06pubkey\"+\n" +
+	"\x11DeletePeerRequest\x12\x16\n" +
+	"\x06pubkey\x18\x01 \x01(\tR\x06pubkey\"D\n" +
+	"\x12DeletePeerResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x14\n" +
-	"\x05error\x18\x02 \x01(\tR\x05error2\xc0\x01\n" +
-	"\x10AmneziaWGService\x12U\n" +
-	"\fCreateClient\x12!.amneziawg.v1.CreateClientRequest\x1a\".amneziawg.v1.CreateClientResponse\x12U\n" +
-	"\fDeleteClient\x12!.amneziawg.v1.DeleteClientRequest\x1a\".amneziawg.v1.DeleteClientResponseB\xb5\x01\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error2\xb4\x01\n" +
+	"\x10AmneziaWGService\x12O\n" +
+	"\n" +
+	"CreatePeer\x12\x1f.amneziawg.v1.CreatePeerRequest\x1a .amneziawg.v1.CreatePeerResponse\x12O\n" +
+	"\n" +
+	"DeletePeer\x12\x1f.amneziawg.v1.DeletePeerRequest\x1a .amneziawg.v1.DeletePeerResponseB\xb5\x01\n" +
 	"\x10com.amneziawg.v1B\x0eAmneziawgProtoP\x01Z@github.com/thebeyond-net/node-agent/pkg/amneziawg/v1;amneziawgv1\xa2\x02\x03AXX\xaa\x02\fAmneziawg.V1\xca\x02\fAmneziawg\\V1\xe2\x02\x18Amneziawg\\V1\\GPBMetadata\xea\x02\rAmneziawg::V1b\x06proto3"
 
 var (
@@ -256,16 +258,16 @@ func file_amneziawg_proto_rawDescGZIP() []byte {
 
 var file_amneziawg_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_amneziawg_proto_goTypes = []any{
-	(*CreateClientRequest)(nil),  // 0: amneziawg.v1.CreateClientRequest
-	(*CreateClientResponse)(nil), // 1: amneziawg.v1.CreateClientResponse
-	(*DeleteClientRequest)(nil),  // 2: amneziawg.v1.DeleteClientRequest
-	(*DeleteClientResponse)(nil), // 3: amneziawg.v1.DeleteClientResponse
+	(*CreatePeerRequest)(nil),  // 0: amneziawg.v1.CreatePeerRequest
+	(*CreatePeerResponse)(nil), // 1: amneziawg.v1.CreatePeerResponse
+	(*DeletePeerRequest)(nil),  // 2: amneziawg.v1.DeletePeerRequest
+	(*DeletePeerResponse)(nil), // 3: amneziawg.v1.DeletePeerResponse
 }
 var file_amneziawg_proto_depIdxs = []int32{
-	0, // 0: amneziawg.v1.AmneziaWGService.CreateClient:input_type -> amneziawg.v1.CreateClientRequest
-	2, // 1: amneziawg.v1.AmneziaWGService.DeleteClient:input_type -> amneziawg.v1.DeleteClientRequest
-	1, // 2: amneziawg.v1.AmneziaWGService.CreateClient:output_type -> amneziawg.v1.CreateClientResponse
-	3, // 3: amneziawg.v1.AmneziaWGService.DeleteClient:output_type -> amneziawg.v1.DeleteClientResponse
+	0, // 0: amneziawg.v1.AmneziaWGService.CreatePeer:input_type -> amneziawg.v1.CreatePeerRequest
+	2, // 1: amneziawg.v1.AmneziaWGService.DeletePeer:input_type -> amneziawg.v1.DeletePeerRequest
+	1, // 2: amneziawg.v1.AmneziaWGService.CreatePeer:output_type -> amneziawg.v1.CreatePeerResponse
+	3, // 3: amneziawg.v1.AmneziaWGService.DeletePeer:output_type -> amneziawg.v1.DeletePeerResponse
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
