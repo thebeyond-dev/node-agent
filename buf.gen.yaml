@@ -1,0 +1,17 @@
+version: v2
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      value: github.com/thebeyond-net/node-agent/pkg/amneziawg/v1
+plugins:
+  - remote: buf.build/protocolbuffers/go
+    out: pkg/amneziawg/v1
+    opt: paths=source_relative
+  - remote: buf.build/connectrpc/gosimple
+    out: pkg/amneziawg/v1
+    opt:
+      - paths=source_relative
+      - simple
+inputs:
+  - directory: api/proto
