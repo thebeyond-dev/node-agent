@@ -4,9 +4,12 @@ import (
 	"log"
 	"net/http"
 
+	"connectrpc.com/connect"
 	"github.com/shizumico/arcane/pkg/logger"
 	"github.com/shizumico/arcane/pkg/sqlite"
+	"github.com/thebeyond-net/node-agent/config"
 	amneziawgAdapter "github.com/thebeyond-net/node-agent/internal/adapters/amneziawg"
+	"github.com/thebeyond-net/node-agent/internal/adapters/grpc/interceptors"
 	peerHandlers "github.com/thebeyond-net/node-agent/internal/adapters/grpc/peers"
 	"github.com/thebeyond-net/node-agent/internal/adapters/repositories/sqlite/ipallocation"
 	"github.com/thebeyond-net/node-agent/internal/core/application/peers"
@@ -17,7 +20,7 @@ import (
 )
 
 func main() {
-	cfg, err := LoadConfig()
+	cfg, err := config.Load()
 	if err != nil {
 		log.Fatalf("Failed to load config: %v\n", err)
 	}
@@ -37,13 +40,13 @@ func main() {
 
 	ipallocationRepo, err := ipallocation.NewRepository(db)
 	if err != nil {
-		panic(err)
+		appLogger.Fatal("Failed to create ip allocation repository", zap.Error(err))
 	}
 
 	amneziawgAdapter, err := amneziawgAdapter.New(
-		"193.25.216.218",
-		"10.10.0.0/20",
-		"1.1.1.1,8.8.8.8",
+		cfg.NodeIP,
+		cfg.NetworkCIDR,
+		cfg.ClientDNS,
 	)
 	if err != nil {
 		appLogger.Fatal("Failed to create amneziawg adapter", zap.Error(err))
@@ -59,9 +62,13 @@ func main() {
 	}
 
 	amneziawgHandlers := peerHandlers.NewAmneziaWGServiceServer(peersInteractor)
+	authInterceptor := connect.WithInterceptors(interceptors.NewAuthInterceptor(cfg.AuthSecret))
 
 	mux := http.NewServeMux()
-	path, handler := amneziawgv1connect.NewAmneziaWGServiceHandler(amneziawgHandlers)
+	path, handler := amneziawgv1connect.NewAmneziaWGServiceHandler(
+		amneziawgHandlers,
+		authInterceptor,
+	)
 	mux.Handle(path, handler)
 
 	appLogger.Info("Listening on :" + cfg.Port)
