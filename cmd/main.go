@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -65,6 +64,6 @@ func main() {
 	path, handler := amneziawgv1connect.NewAmneziaWGServiceHandler(amneziawgHandlers)
 	mux.Handle(path, handler)
 
-	fmt.Println("Listening on", cfg.Port)
+	appLogger.Info("Listening on :" + cfg.Port)
 	log.Fatal(http.ListenAndServe(":"+cfg.Port, h2c.NewHandler(mux, &http2.Server{})))
 }
