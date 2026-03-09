@@ -23,6 +23,7 @@ const (
 
 type CreatePeerRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Bandwidth     int32                  `protobuf:"varint,1,opt,name=bandwidth,proto3" json:"bandwidth,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -55,6 +56,13 @@ func (x *CreatePeerRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use CreatePeerRequest.ProtoReflect.Descriptor instead.
 func (*CreatePeerRequest) Descriptor() ([]byte, []int) {
 	return file_amneziawg_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *CreatePeerRequest) GetBandwidth() int32 {
+	if x != nil {
+		return x.Bandwidth
+	}
+	return 0
 }
 
 type CreatePeerResponse struct {
@@ -225,8 +233,9 @@ var File_amneziawg_proto protoreflect.FileDescriptor
 
 const file_amneziawg_proto_rawDesc = "" +
 	"\n" +
-	"\x0famneziawg.proto\x12\famneziawg.v1\"\x13\n" +
-	"\x11CreatePeerRequest\"t\n" +
+	"\x0famneziawg.proto\x12\famneziawg.v1\"1\n" +
+	"\x11CreatePeerRequest\x12\x1c\n" +
+	"\tbandwidth\x18\x01 \x01(\x05R\tbandwidth\"t\n" +
 	"\x12CreatePeerResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x14\n" +
 	"\x05error\x18\x02 \x01(\tR\x05error\x12\x16\n" +

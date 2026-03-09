@@ -10,6 +10,7 @@ service AmneziaWGService {
 }
 
 message CreatePeerRequest {
+    int32 bandwidth = 1;
 }
 
 message CreatePeerResponse {
