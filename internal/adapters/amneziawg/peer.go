@@ -18,8 +18,9 @@ func (a *Adapter) RegisterPeer(pubKey, allowedIP string) error {
 	return nil
 }
 
-func (a *Adapter) RemovePeer(pubKey string) error {
+func (a *Adapter) RemovePeer(pubKey, allowedIP string) error {
 	_ = a.removePeerLive(pubKey)
+	_ = a.SetPeerBandwidth(allowedIP, 0)
 	return a.removeFromConfig(pubKey)
 }
 
