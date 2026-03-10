@@ -33,7 +33,8 @@ UPDATE ip_allocations
 SET released_at = CURRENT_TIMESTAMP
 WHERE ip = ? AND released_at IS NULL;
 
--- name: ReleaseByPublicKey :exec
+-- name: ReleaseByPublicKey :one
 UPDATE ip_allocations 
 SET released_at = CURRENT_TIMESTAMP 
-WHERE pubkey = ? AND released_at IS NULL;
+WHERE pubkey = ? AND released_at IS NULL
+RETURNING ip;

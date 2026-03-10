@@ -104,6 +104,11 @@ func (r *Repository) Release(ctx context.Context, ip netip.Addr) error {
 	return r.queries.Release(ctx, ip.String())
 }
 
-func (r *Repository) ReleaseByPublicKey(ctx context.Context, publicKey string) error {
-	return r.queries.ReleaseByPublicKey(ctx, publicKey)
+func (r *Repository) ReleaseByPublicKey(ctx context.Context, publicKey string) (netip.Addr, error) {
+	ip, err := r.queries.ReleaseByPublicKey(ctx, publicKey)
+	if err != nil {
+		return netip.Addr{}, err
+	}
+
+	return netip.ParseAddr(ip)
 }
