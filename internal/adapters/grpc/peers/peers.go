@@ -18,7 +18,7 @@ func NewAmneziaWGServiceServer(usecase ports.PeerUseCase) *AmneziaWGServiceServe
 }
 
 func (s *AmneziaWGServiceServer) CreatePeer(ctx context.Context, req *v1.CreatePeerRequest) (*v1.CreatePeerResponse, error) {
-	cfg, pubKey, err := s.usecase.CreatePeer(ctx)
+	cfg, pubKey, err := s.usecase.CreatePeer(ctx, int(req.GetBandwidth()))
 	return &v1.CreatePeerResponse{
 		Success: err == nil,
 		Config:  cfg,
