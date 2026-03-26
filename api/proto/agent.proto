@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+package vpn.v1;
+
+option go_package = "github.com/thebeyond-net/node-agent/pkg/agent/v1;agentv1";
+
+service ControlPlaneService {
+    rpc Connect(stream AgentMessage) returns (stream ControlCommand);
+    rpc Sync(SyncRequest) returns (SyncResponse);
+}
+
+message SyncRequest {}
+
+message SyncResponse {
+    repeated PeerConfig peers = 1;
+}
+
+message PeerConfig {
+    Protocol protocol = 1;
+    string identifier = 2;
+}
+
+message AgentMessage {
+    string request_id = 1;
+    oneof content {
+        AgentStatus status = 2;
+        CommandResponse command_response = 3;
+    }
+}
+
+message ControlCommand {
+    string request_id = 1;
+    oneof action {
+        CreatePeerRequest create_peer = 2;
+        DeletePeerRequest delete_peer = 3;
+        SetPeerBandwidthRequest set_bandwidth = 4;
+        HealthCheckRequest health_check = 5;
+    }
+}
+
+message CommandResponse {
+    bool success = 1;
+    string error_message = 2;
+    oneof data {
+        CreatePeerResponse create_response = 3;
+        DeletePeerResponse delete_response = 4;
+        SetPeerBandwidthResponse bandwidth_response = 5;
+    }
+}
+
+message HealthCheckRequest {}
+
+message AgentStatus {
+    int32 active_peers = 1;
+}
+
+enum Protocol {
+    PROTOCOL_UNSPECIFIED = 0;
+    PROTOCOL_AMNEZIA_WG = 1;
+    PROTOCOL_VLESS = 2;
+}
+
+message CreatePeerRequest {
+    Protocol protocol = 1;
+    int32 bandwidth = 2;
+    oneof options {
+        VLESSOptions vless_options = 3;
+    }
+}
+
+message VLESSOptions {
+    string id = 1;
+}
+
+message CreatePeerResponse {
+    bool success = 1;
+    oneof data {
+        VLESSResponse vless_data = 2;
+        AmneziaWGResponse awg_data = 3;
+    }
+}
+
+message VLESSResponse {
+    string id = 1;
+    string address = 2;
+    int32 port = 3;
+    string sni = 4;
+    string pbk = 5;
+    string sid = 6;
+    string fp = 7;
+    string transport = 8;
+    string path = 9;
+    string host = 10;
+    string mode = 11;
+}
+
+message AmneziaWGResponse {
+    string public_key = 1;
+    string private_key = 2;
+    string address = 3;
+    string endpoint = 4;
+    int32 jc = 5;
+    int32 jmin = 6;
+    int32 jmax = 7;
+    int32 s1 = 8;
+    int32 s2 = 9;
+    int32 h1 = 10;
+    int32 h2 = 11;
+    int32 h3 = 12;
+    int32 h4 = 13;
+}
+
+message DeletePeerRequest {
+    Protocol protocol = 1;
+    oneof identifier {
+        string public_key = 2;
+        string email = 3;
+    }
+}
+
+message DeletePeerResponse {
+    bool success = 1;
+}
+
+message SetPeerBandwidthRequest {
+    Protocol protocol = 1;
+    int32 bandwidth = 2;
+    oneof identifier {
+        string public_key = 3;
+        string email = 4;
+    }
+}
+
+message SetPeerBandwidthResponse {
+    bool success = 1;
+}
