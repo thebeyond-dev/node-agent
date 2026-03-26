@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package vpn.v1;
+package agent.v1;
 
 option go_package = "github.com/thebeyond-net/node-agent/pkg/agent/v1;agentv1";
 
